@@ -103,7 +103,6 @@ put '/todos/:id' do
   puts params[:id]
   todos.each{|todo| todo[:status] = params[:status] if todo[:id]==params[:id]}
   todos.each{|todo| todo[:text] = params[:text] if todo[:id]==params[:id]}
-
   #todos.map{|todo| todo[:status]=params[:status]} #replaces all
   puts todos
 

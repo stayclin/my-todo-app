@@ -48,15 +48,11 @@ app.Models = app.Models || {};
     },
 
     archive: function(){
-      //debugger;
       var status;
       status = this.get('status');
       if(status==='complete'){
         status = 'archive';
         this.set('status', status);
-      }else if(status==='active'){
-        //return unable to archive message
-        return this;
       }
       return this;
     }

@@ -3,9 +3,11 @@
   .status-bar {
     &__item {
       cursor: pointer;
+      color: #c1c1c1;
     }
     &__item--active {
       font-weight: 700;
+      color: $darkgray;
     }
   }
 }

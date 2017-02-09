@@ -33,10 +33,11 @@
     <!--<% if (completed) { %>
       <a id="clear-completed">Clear <%= completed %> completed <%= completed == 1 ? 'item' : 'items' %></a>
     <% } %>-->
-    <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
+    <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'task' : 'tasks' %> remaining
     <% if (completed) { %>
       <a id="complete-all">Complete All</a>
     <% } %>
+  </div>
   </script>
 
   <section class="add-todos">
@@ -51,7 +52,7 @@
     <div class="view">
     <input class="toggle" type="checkbox" <%= status == 'complete' ? 'checked="checked"' : '' %> />
     <%= text %>
-    <button class="todo-list__delete-item">X</button>
+    <a class="todo-list__delete-item">x</a>
     <button class="todo-list__archive-item">Archive</button>
   </div>
   <input class="edit" type="text" value="<%= text %>" />

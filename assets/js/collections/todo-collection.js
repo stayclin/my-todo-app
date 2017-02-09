@@ -6,7 +6,7 @@ app.Collections = app.Collections || {};
 
   var TodoCollection = Backbone.Collection.extend({
   //app.Collections.TodoCollection = Backbone.Collection.extend({
-  
+
     // Public properties.
     // ------------------------------------------------------------------------
     // Public: URL.
@@ -18,7 +18,6 @@ app.Collections = app.Collections || {};
     //
     initialize: function() {
         console.log("Todo Collection initialize");
-
     },
     //keep track of completed
     remaining: function() {

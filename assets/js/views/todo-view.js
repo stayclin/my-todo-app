@@ -67,9 +67,6 @@ app.Views = app.Views || {};
     // Returns this.
     onClick: function () {
       this.model.toggleStatus();
-      //this.model.toggle();
-
-
       return this;
     },
 
@@ -79,7 +76,6 @@ app.Views = app.Views || {};
     //
     // Returns this.
     onDeleteClick: function (event) {
-      //debugger;
       event.stopPropagation();
       this.model.destroy();
       return this;
@@ -87,7 +83,6 @@ app.Views = app.Views || {};
 
     //archive
     onArchiveClick: function(event){
-      //debugger;
       event.stopPropagation();
       this.model.archive(); //want to remove from view but keep
       return this;
@@ -96,24 +91,16 @@ app.Views = app.Views || {};
 
     //edit on doubleClick
     edit: function() {
-      debugger;
-      //this.$el.addClass("editing");
-      //this.el.classList.add("editing");
       event.currentTarget.classList.add("editing");
       this.$(".edit").focus();
     },
     updateOnEnter: function(event) {
       event.stopPropagation();
-
       if (event.keyCode != 13) return;
       if (!this.$(".edit").val()) return;
-      debugger;
-      //this.$(".edit").close();
       this.close();
-
     },
     close: function() {
-      debugger;
       var value = this.$(".edit").val();
       if (!value) {
         this.clear();
@@ -129,7 +116,6 @@ app.Views = app.Views || {};
     //
     // Returns this.
     filter: function (filter) {
-      debugger;
       var show;
       show = filter === 'all' || filter === this.model.get('status')  ;
 

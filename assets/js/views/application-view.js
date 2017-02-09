@@ -10,7 +10,8 @@ app.Views = app.Views || {};
     // Public: El.
     el: document.body,
 
-    // Public: Template.//
+    // Public: Template.
+    // For status bar
     statsTemplate: _.template($("#stats-template").html()),
 
     // Public methods.
@@ -20,7 +21,6 @@ app.Views = app.Views || {};
     // Returns an events object.
     events: function () {
       return {
-        //'click .toggle'   : 'toggleDone',
         'click .status-bar__item': 'setFilter',
         'keypress .add-todos__input': 'submitTodo',
         'click #clear-completed': 'clearCompleted',
@@ -46,8 +46,7 @@ app.Views = app.Views || {};
       //this.listenTo(this.collection, 'all', this.render); //to update each change //removed for filtering to work
 
       this.collection.fetch();
-     //return this;
-
+      return this;
     },
 
     // Public: Render.
@@ -57,7 +56,6 @@ app.Views = app.Views || {};
       //debugger;
       this.list = this.list || this.el.querySelector('.todo-list .list');
       this.renderTodoList();
-
 
       return this;
     },
@@ -104,11 +102,9 @@ app.Views = app.Views || {};
 
       if (event.keyCode != 13) return;
       if (!this.$(".add-todos__input").val()) return;
-      //debugger;
 
       var field,
         value;
-
       field = event.currentTarget;
       value = field.value;
 
@@ -117,8 +113,6 @@ app.Views = app.Views || {};
       /*if (value === '') {
         return this;
       }
-
-
       if (event.which !== app.ENTER) {
         return this;
       }*/
@@ -140,8 +134,6 @@ app.Views = app.Views || {};
     //
     // Returns this.
     setFilter: function (event) {
-      debugger;
-
       var status;
       status = event.currentTarget.getAttribute('data-status');
       this.collection.trigger('filter', status);
@@ -158,14 +150,14 @@ app.Views = app.Views || {};
 			_.invoke(app.Todos.completed(), "destroy");
 			return false;
 		},
+    //complete all active
     completeAll: function() {
-      debugger;
-
       _.invoke(app.Todos.remaining(), "toggleStatus");
       //var done = this.allCheckbox.checked;
       //app.Todos.each(function (todo) { todo.save({status: 'complete'}); }); works
       return false;
     },
+    //archive all completed
     archiveCompleted: function() {
       _.invoke(app.Todos.completed(), "archive");
       return false;

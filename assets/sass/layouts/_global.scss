@@ -3,118 +3,42 @@ body {
   background: map-get($colors, ui-light);
   font-family: Helvetica, Arial, sans-serif;
 }
-
 .container {
   margin: 0 auto;
-  //max-width: 1000px;
   padding: 10px 40px;
   width: 100%;
 }
-/*.container{
-	//display: none;
-	margin: 0 -20px -20px -20px;
-	overflow: hidden;
-	color: #555555;
-  background: map-get($colors, primary);
-	border-top: 1px solid #ededed;
-	padding: 0 20px;
-	line-height: 37px;
-}*/
-
 .display-none {
   display: none !important;
 }
 //
-/*.status-bar ul{
-  list-style: none;
-}*/
 .status-bar ul {
-	//display: none;
+  list-style: none;
 	margin: 10px -10px;
 	overflow: hidden;
 	color: #555555;
-	background: $gray;
+	//background: $gray;
+  background: #e8ebef;
 	padding: 0 30px;
 	line-height: 37px;
 }
 .status-bar li{
   display: inline;
   padding: 0 10px;
-  font-size: 14 px;
-}
-#archive-completed{
-  float: right;
+  font-size: 12px;
 }
 .summary-bar {
-	//display: none;
 	margin: -10px;
 	overflow: hidden;
-	//color: #555555;
-	background: #f4fce8;
-	border-top: 1px solid #ededed;
-  border-bottom: 1px solid #ededed;
 	padding: 0 20px;
 	line-height: 37px;
 }
 .todo-count{
   padding: 0 20px;
+  line-height: 1.4em;
+  font-size: 16px;
+  color: $darkgray;
 }
-
-.add-todos input[type="text"] {
-	width: 466px;
-	font-size: 24px;
-	line-height: 1.4em;
-	padding: 6px;
-}
-.add-todos__input{
-  border: 1px solid #ededed;
-  margin: 50px;
-}
-.todo {
-	margin: 10px 0;
-	list-style: none;
-  border-bottom: 1px solid #cccccc;
-  padding: 18px 20px 18px 0;
-	position: relative;
-	font-size: 24px;
-}
-.todo li {
-
-}
-
-.todo .edit {
-  display: none;
-}
-.editing {
-	border-bottom: 1px solid #778899;
-
-}
-
-.editing .view {
-	display: none;
-}
-
-.editing .edit {
-	display: block;
-	width: 444px;
-	padding: 13px 15px 14px 20px;
-	margin: 0;
-}
-
-.todo .todo-list__delete-item {
-	position: absolute;
-	right: 5px;
-	top: 20px;
-	display: none;
-	cursor: pointer;
-	width: 20px;
-	height: 20px;
-}
-
-.todo:hover .todo-list__delete-item {
-   display:block
-}
-
 #clear-completed {
 	float: right;
 	line-height: 20px;
@@ -129,7 +53,84 @@ body {
 }
 #complete-all{
   cursor: pointer;
+  font-size: 12px;
+  margin-left: 7px;
+  color: map-get($colors, primary);
 }
 #archive-completed{
   cursor: pointer;
+  float: right;
+  //border: 1px solid #ededed;
+  font-size: 12px;
+  border-radius: 5px;
+  background: #46c95a;
+  padding: 3px 10px;
+  color: #f2f3f4;
+  line-height: 1.4em;
+  margin-top: 7px;
+}
+.add-todos input[type="text"] {
+	width: 466px;
+	font-size: 24px;
+	line-height: 1.4em;
+	padding: 6px;
+  border-radius: 5px;
+  margin: 30px auto;
+  display: block;
+}
+.add-todos__input{
+  border: 1px solid #ededed;
+  margin: 50px;
+}
+.todo {
+	margin: 10px 150px;
+	list-style: none;
+  border-bottom: 1px solid #cccccc;
+  padding: 18px 20px 18px 0;
+	position: relative;
+	font-size: 24px;
+  color: $darkgray;
+}
+.todo .edit {
+  display: none;
+}
+.editing {
+	border-bottom: 1px solid #778899;
+}
+.editing .view {
+	display: none;
+}
+.editing .edit {
+	display: block;
+	width: 444px;
+	padding: 13px 15px 14px 20px;
+	margin: 0;
+  font-size: 24px;
+  text-decoration: none;
+}
+.todo .todo-list__delete-item {
+	position: absolute;
+	right: 5px;
+	top: 20px;
+	display: none;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+}
+.todo:hover .todo-list__delete-item {
+   display:block;
+   color: $lightgray;
+}
+.todo .todo-list__archive-item {
+  cursor: pointer;
+  border: none;
+  font-size: 12px;
+  border-radius: 5px;
+  background: #46c95a;
+  padding: 3px 10px;
+  color: #f2f3f4;
+  margin-left: 10px;
+}
+.todo-list__delete-item{
+
 }
