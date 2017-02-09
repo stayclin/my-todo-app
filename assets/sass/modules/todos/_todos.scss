@@ -5,4 +5,17 @@
   &--status-complete {
     text-decoration: line-through;
   }
+  &--status-archive {
+    text-decoration: line-through;
+    .todo-list__archive-item{
+      //cannot archive already archived
+      display:none;
+    }
+  }
+  &--status-active {
+    .todo-list__archive-item{
+      display:none;
+    }
+  }
+
 }

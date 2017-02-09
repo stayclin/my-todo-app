@@ -17,8 +17,27 @@
       <li class="status-bar__item status-bar__item--active" data-status="all">All</li>
       <li class="status-bar__item" data-status="active">Active</li>
       <li class="status-bar__item" data-status="complete">Completed</li>
+      <li class="status-bar__item" data-status="archive">Archived</li>
+      <a id="archive-completed">Archive all completed</a>
+
     </ul>
+
   </section>
+
+  <section class="summary-bar">
+      <p><span id="tasks-remaining"></span></p>
+      <!--<span id="total-tasks"></span> total tasks</p>-->
+  </section>
+
+  <script type="text/template" id="stats-template">
+    <!--<% if (completed) { %>
+      <a id="clear-completed">Clear <%= completed %> completed <%= completed == 1 ? 'item' : 'items' %></a>
+    <% } %>-->
+    <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
+    <% if (completed) { %>
+      <a id="complete-all">Complete All</a>
+    <% } %>
+  </script>
 
   <section class="add-todos">
     <input class="add-todos__input" type="text" placeholder="Add new todo…">
@@ -29,9 +48,14 @@
   </section>
 
   <script type="text/template" id="todo-template">
+    <div class="view">
+    <input class="toggle" type="checkbox" <%= status == 'complete' ? 'checked="checked"' : '' %> />
     <%= text %>
+    <button class="todo-list__delete-item">X</button>
+    <button class="todo-list__archive-item">Archive</button>
+  </div>
+  <input class="edit" type="text" value="<%= text %>" />
 
-    <button class="todo-list__delete-item">Delete</button>
   </script>
 
   <script src="/node_modules/jquery/dist/jquery.js"></script>

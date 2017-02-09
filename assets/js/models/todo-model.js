@@ -12,13 +12,15 @@ app.Models = app.Models || {};
     // Returns a defaults object.
     defaults: function () {
       return {
+        id:'',
+        text:'empty',
         status: 'active'
       }
     },
 
     // Public: Initialize.
     //
-    // Returns this.
+    // Returns this. //set as completed
     initialize: function () {
       this.on('change:status', function (model) {
         model.save();
@@ -36,11 +38,28 @@ app.Models = app.Models || {};
       if (status === 'active') {
         status = 'complete';
       } else if (status === 'complete') {
-        status = 'active'
+        status = 'active';
       }
 
       this.set('status', status);
+      //this.save('status', status);
+      //model.save();
+      return this;
+    },
+
+    archive: function(){
+      //debugger;
+      var status;
+      status = this.get('status');
+      if(status==='complete'){
+        status = 'archive';
+        this.set('status', status);
+      }else if(status==='active'){
+        //return unable to archive message
+        return this;
+      }
       return this;
     }
+
   });
 })();

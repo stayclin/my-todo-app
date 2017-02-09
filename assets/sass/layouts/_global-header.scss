@@ -1,4 +1,12 @@
 // Global header layout.
 .global-header {
   background-color: map-get($colors, primary);
+  margin: 0 -10px -10px -10px;
+  height: 50px;
+}
+.global-logo{
+  text-decoration: none;
+  font-size: 24px;
+  color: map-get($colors, ui-light);
+  margin: auto;
 }
