@@ -1,0 +1,12 @@
+// App state todos layout.
+.app-state-todos {
+  .status-bar {
+    &__item {
+      cursor: pointer;
+    }
+    
+    &__item--active {
+      font-weight: 700;
+    }
+  }
+}

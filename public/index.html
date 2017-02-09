@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="app-state-todos">
+  <header class="global-header">
+    <div class="container">
+      <a class="global-logo" href="/">MyTodos</a>
+    </div>
+  </header>
+
+  <section class="status-bar">
+    <ul class="status-bar__filter">
+      <li class="status-bar__item status-bar__item--active" data-status="all">All</li>
+      <li class="status-bar__item" data-status="active">Active</li>
+      <li class="status-bar__item" data-status="complete">Completed</li>
+    </ul>
+  </section>
+
+  <section class="add-todos">
+    <input class="add-todos__input" type="text" placeholder="Add new todo…">
+  </section>
+
+  <section class="todo-list">
+    <ul class="list"></ul>
+  </section>
+
+  <script type="text/template" id="todo-template">
+    <%= text %>
+
+    <button class="todo-list__delete-item">Delete</button>
+  </script>
+
+  <script src="/node_modules/jquery/dist/jquery.js"></script>
+  <script src="/node_modules/underscore/underscore.js"></script>
+  <script src="/node_modules/backbone/backbone.js"></script>
+
+  <script src="/js/models/todo-model.js"></script>
+
+  <script src="/js/collections/todo-collection.js"></script>
+
+  <script src="/js/views/todo-view.js"></script>
+  <script src="/js/views/application-view.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
