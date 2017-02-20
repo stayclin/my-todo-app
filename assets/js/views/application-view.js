@@ -128,12 +128,12 @@ app.Views = app.Views || {};
       console.log("uid: " +_.uniqueId());
 
       //using uniqueID for model id
-      //var uid = _.uniqueId();
+      var uid = _.uniqueId();
       //this.collection.add({id: uid, text: value});
-      //this.collection.create({id: uid, text: value});
+      this.collection.create({id: uid, text: value});
 
       //this.collection.add({text: value}); //doesn't add to database. doesn't call ruby put create new
-      this.collection.create({text: value}); //doesn't call addTodo after the first submit...
+      //this.collection.create({text: value}); //doesn't call addTodo after the first submit...
       field.value = '';
       //this.$(".add-todos__input").val(""); //same as above
       this.$(".add-todos__input").blur();

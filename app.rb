@@ -42,11 +42,46 @@ put '/todos/' do
   end
 
   todos << {
-    #id: params[:id],
-    id: todos.count + 1,    #todo.count if delete before add, index will conflict
+    id: params[:id],
+    #id: todos.count + 1,    #todo.count if delete before add, index will conflict
     text: params[:text],
     status: :active
   }
+end
+
+#update
+#update and create now
+put '/todos/:id' do
+  puts "put update"
+  params = get_params(request)
+
+  #todos.each{|todo| todo[:status] = params[:status] if todo[:id]==params[:id]}
+  #todos.each{|todo| todo[:text] = params[:text] if todo[:id]==params[:id]}
+  #todos.map{|todo| todo[:status]=params[:status]} #replaces all
+
+  new = false
+  todos.each do |todo|
+    if todo[:id]==params[:id]
+      puts "found exists"
+      new = false
+      todo[:status] = params[:status]
+      todo[:text] = params[:text]
+      break
+    else
+      puts "keep looking"
+      new = true
+    end
+  end
+
+puts new
+if(new)
+  todos << {
+    id: params[:id],
+    text: params[:text],
+    status: :active
+  }
+end
+
 end
 
 delete '/todos/:id' do
@@ -60,15 +95,6 @@ delete '/todos/:id' do
       puts "next item"
     end
   end
-end
-
-#update
-put '/todos/:id' do
-  #puts "put update"
-  params = get_params(request)
-  todos.each{|todo| todo[:status] = params[:status] if todo[:id]==params[:id]}
-  todos.each{|todo| todo[:text] = params[:text] if todo[:id]==params[:id]}
-  #todos.map{|todo| todo[:status]=params[:status]} #replaces all
 end
 
 def get_params(req)

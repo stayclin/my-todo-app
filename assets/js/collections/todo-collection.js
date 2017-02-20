@@ -3,7 +3,6 @@ app.Collections = app.Collections || {};
 
 (function () {
   'use strict';
-
   var TodoCollection = Backbone.Collection.extend({
   //app.Collections.TodoCollection = Backbone.Collection.extend({
 
@@ -36,8 +35,13 @@ app.Collections = app.Collections || {};
 			return this.without.apply(this, this.remaining());
 		},
 
+    nextOrder: function() {
+      if (!this.length) return 1;
+      return this.last().get('id') + 1;
+    },
+    comparator: 'id'
 
-  })
+  });
   //app.Todos = new app.Collections.TodoCollection();
   app.Todos = new TodoCollection();
 
