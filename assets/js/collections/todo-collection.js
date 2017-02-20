@@ -15,14 +15,23 @@ app.Collections = app.Collections || {};
     // Public: Model.
     model: app.Models.TodoModel,
 
+    // Public: Initialize.
     //
+    // Returns this.
     initialize: function() {
         console.log("Todo Collection initialize");
     },
-    //keep track of completed
+
+    // Public: Remaining todos.
+    //
+    // Returns this.
     remaining: function() {
 			return this.where({status: 'active'});
 		},
+
+    // Public: Completed todos.
+    //
+    // Returns this.
 		completed: function() {
 			return this.without.apply(this, this.remaining());
 		},

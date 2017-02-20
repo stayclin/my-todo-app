@@ -25,7 +25,6 @@ app.Views = app.Views || {};
         'dblclick .view'  : 'edit', //to edit
         'keypress .edit'  : 'updateOnEnter',
 			  'blur .edit'      : 'close',
-
         'click .todo-list__delete-item': 'onDeleteClick',
         'click .todo-list__archive-item': 'onArchiveClick'
       }
@@ -44,9 +43,11 @@ app.Views = app.Views || {};
       this.listenTo(this.model, 'change:status', function (model, status) {
         _this.toggleComplete(status);
       });
+      //Our view object is now listening for changes on the model object,
+      //and when it does indeed change, we’re calling the render function again, which updates the view.
       this.listenTo(this.model, 'change', this.render);
-
       this.listenTo(this.model, 'destroy', this.remove);
+      //this.listenTo(this.model, 'sync', this.render);
 
       return this;
     },
@@ -55,9 +56,10 @@ app.Views = app.Views || {};
     //
     // Returns this.
     render: function () {
-      this.el.innerHTML = this.template(this.model.toJSON());
-      //this.el.html(this.template(this.model.toJSON());
+      //this.delegateEvents();
 
+      this.el.innerHTML = this.template(this.model.toJSON());
+      //this.el.html(this.template(this.model.toJSON()); //doesn't display list
       this.toggleComplete(this.model.get('status'));
       return this;
     },
@@ -81,25 +83,42 @@ app.Views = app.Views || {};
       return this;
     },
 
-    //archive
+    // Public: Handle clicking the archive button.
+    //
+    // event - Event object.
+    //
+    // Returns this.
     onArchiveClick: function(event){
       event.stopPropagation();
-      this.model.archive(); //want to remove from view but keep
+      this.model.archive(); //want to remove from view but keep in collection
       return this;
 
     },
 
-    //edit on doubleClick
+    // Public: Handle double clicking todo item text to edit.
+    //
+    // Returns this.
     edit: function() {
       event.currentTarget.classList.add("editing");
       this.$(".edit").focus();
+      return this;
     },
+
+    // Public: Handle editing the todo item on enter.
+    //
+    // event - Event object.
+    //
+    // Returns this.
     updateOnEnter: function(event) {
       event.stopPropagation();
       if (event.keyCode != 13) return;
       if (!this.$(".edit").val()) return;
       this.close();
     },
+
+    // Public: Handle submiting the todo item edit.
+    //
+    // Returns this.
     close: function() {
       var value = this.$(".edit").val();
       if (!value) {
@@ -108,6 +127,7 @@ app.Views = app.Views || {};
         this.model.save({text: value});
         this.$el.removeClass("editing");
       }
+      return this;
     },
 
     // Public: Toggle the visibility of a todo item.

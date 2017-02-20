@@ -15,47 +15,26 @@ end
 
 get '/todos' do
   json (todos)
-  #@response = todos
-  #json @response
 end
 
 get '/todos/:id' do
-  #@response = todos[params[:id]]
-  #json (@response)
   #binding.pry
-  val = params[:id]
-  puts val
-  puts todos.size
   index = params[:id]
-  puts "index equals #{index}"
-  puts todos[Integer(index)] #works to get the index
-  #json(todos[Integer(index)])
+  #puts todos[Integer(index)] #works to get the index
 
-  todoval = todos.find(params[:id])
-  puts todoval
-  puts todos[1][:text]
-  #puts todos[{@val]
-  #loops through to find the id also works
+#to search based on id
+  #loops through to find the id
   todos.each do |todo|
-    puts "loop id: #{todo[:id]} and todo: #{todo[:text]}"
-    puts todo[:id].to_s.inspect
-    puts index.inspect
     if index == todo[:id].to_s
-      puts "if index equals #{index}"
-      puts "found"
-      puts "if id: #{todo[:id]} and todo: #{todo[:text]}"
       return json(todo)
-    else
-      puts "next item"
     end
   end
-
 end
 
 #create
 #post '/todos' do
 put '/todos/' do
-  puts "adding new todo"
+  #puts "adding new todo"
   params = get_params(request)
 
   if params[:text].nil?
@@ -64,49 +43,32 @@ put '/todos/' do
 
   todos << {
     #id: params[:id],
-    id: todos.count + 1,    #todo.count if delete before add, index will be wrong
+    id: todos.count + 1,    #todo.count if delete before add, index will conflict
     text: params[:text],
     status: :active
   }
-  puts "posting #{todos}"
-
-  json todos
 end
 
 delete '/todos/:id' do
-  puts "deleting"
-
+  #puts "deleting"
   index = params[:id]
   todos.each do |todo|
     if index == todo[:id].to_s
-      puts "if index equals #{index}"
-      puts "found"
-      puts "if #{todo}"
       todos.delete(todo)
       #return json(todo)
     else
       puts "next item"
     end
   end
-
-  puts "count #{todos.size}"
-  puts todos
-  #halt 500, 'not implemented'
 end
 
 #update
 put '/todos/:id' do
-  puts "put update"
+  #puts "put update"
   params = get_params(request)
-  puts params[:text]
-  puts params[:status]
-  puts params[:id]
   todos.each{|todo| todo[:status] = params[:status] if todo[:id]==params[:id]}
   todos.each{|todo| todo[:text] = params[:text] if todo[:id]==params[:id]}
   #todos.map{|todo| todo[:status]=params[:status]} #replaces all
-  puts todos
-
-  #halt 500, 'not implemented'
 end
 
 def get_params(req)

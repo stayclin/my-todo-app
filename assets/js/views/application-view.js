@@ -39,13 +39,29 @@ app.Views = app.Views || {};
       //this.collection = new app.Collections.TodoCollection();
 
       //this.collection.on("add", this.render, this);
+      //add event called everytime a model is added to the collection
       this.listenTo(this.collection, 'add', this.addTodo);
       //this.listenTo(this.collection, 'add', this.render);
-      this.listenTo(this.collection, 'sync', this.renderTodoList);
+      this.listenTo(this.collection, 'sync', this.render);
       //this.listenTo(this.collection, 'reset', this.renderTodoList);
       //this.listenTo(this.collection, 'all', this.render); //to update each change //removed for filtering to work
+      //Callbacks bound to the special "all" event will be triggered when any event occurs, and are passed the name of the event as the first argument.
+      this.listenTo(this.collection, 'all', this.countTask); //to update each change
 
       this.collection.fetch();
+      return this;
+    },
+
+    // Public: Keep track of number of tasks remaining.
+    //
+    // Returns this.
+    countTask: function () {
+      console.log("render collection length: " + this.collection.length);
+      var completed = this.collection.completed().length;
+      var remaining = this.collection.remaining().length;
+      console.log("remaining: " + remaining);
+      this.$("#tasks-remaining").html(this.statsTemplate({completed: completed, remaining: remaining}));
+
       return this;
     },
 
@@ -53,7 +69,7 @@ app.Views = app.Views || {};
     //
     // Returns this.
     render: function () {
-      //debugger;
+      debugger;
       this.list = this.list || this.el.querySelector('.todo-list .list');
       this.renderTodoList();
 
@@ -64,17 +80,9 @@ app.Views = app.Views || {};
     //
     // Returns this.
     renderTodoList: function () {     //add all
+      debugger;
       this.list.innerHTML = '';
       this.collection.each(_.bind(this.addTodo, this));
-      //this.collection.each(this.addTodo, this);
-
-      console.log("render collection length: " + this.collection.length);
-      var completed = app.Todos.completed().length;
-      var remaining = app.Todos.remaining().length;
-      //var completed = this.collection.completed().length;
-      //var remaining = this.collection.remaining().length;
-      console.log("remaining: " + remaining);
-      this.$("#tasks-remaining").html(this.statsTemplate({completed: completed, remaining: remaining}));
 
       return this;
     },
@@ -85,6 +93,7 @@ app.Views = app.Views || {};
     //
     // Returns this.
     addTodo: function (model) {
+      debugger;
       var todo;
       todo = new app.Views.TodoView({model: model});
       this.list.appendChild(todo.render().el);
@@ -98,10 +107,17 @@ app.Views = app.Views || {};
     //
     // Returns this.
     submitTodo: function (event) {
+      debugger;
       event.stopPropagation();
 
       if (event.keyCode != 13) return;
       if (!this.$(".add-todos__input").val()) return;
+      /*if (value === '') {
+        return this;
+      }
+      if (event.which !== app.ENTER) {
+        return this;
+      }*/
 
       var field,
         value;
@@ -110,20 +126,20 @@ app.Views = app.Views || {};
 
       console.log(this.$(".add-todos__input").val());
       console.log("uid: " +_.uniqueId());
-      /*if (value === '') {
-        return this;
-      }
-      if (event.which !== app.ENTER) {
-        return this;
-      }*/
-      var uid = _.uniqueId();
-      //this.collection.create({id: _.uniqueId(), text: value});
-      //this.collection.add({id: uid, text: value});
-      //this.collection.create({id: uid, text: value}); //doesn't call ruby put create new
-      this.collection.create({text: value});
 
+      //using uniqueID for model id
+      //var uid = _.uniqueId();
+      //this.collection.add({id: uid, text: value});
+      //this.collection.create({id: uid, text: value});
+
+      //this.collection.add({text: value}); //doesn't add to database. doesn't call ruby put create new
+      this.collection.create({text: value}); //doesn't call addTodo after the first submit...
       field.value = '';
-      //this.$(".add-todos__input").val("");
+      //this.$(".add-todos__input").val(""); //same as above
+      this.$(".add-todos__input").blur();
+
+      //_.invoke(this.model, "addTodo");
+      //this.addTodo();
 
       return this;
     },
@@ -145,21 +161,35 @@ app.Views = app.Views || {};
       return this;
     },
 
-    //clear all completed
+    // Public: Clear all completed.
+    //
+    // event - Event object.
+    //
+    // Returns this.
     clearCompleted: function() {
-			_.invoke(app.Todos.completed(), "destroy");
+			_.invoke(this.collection.completed(), "destroy");
 			return false;
 		},
-    //complete all active
+
+    // Public: Complete all active.
+    //
+    // event - Event object.
+    //
+    // Returns this.
     completeAll: function() {
-      _.invoke(app.Todos.remaining(), "toggleStatus");
+      _.invoke(this.collection.remaining(), "toggleStatus");
       //var done = this.allCheckbox.checked;
       //app.Todos.each(function (todo) { todo.save({status: 'complete'}); }); works
       return false;
     },
-    //archive all completed
+
+    // Public: Archive all completed.
+    //
+    // event - Event object.
+    //
+    // Returns this.
     archiveCompleted: function() {
-      _.invoke(app.Todos.completed(), "archive");
+      _.invoke(this.collection.completed(), "archive");
       return false;
 
     }

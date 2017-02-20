@@ -20,7 +20,7 @@ app.Models = app.Models || {};
 
     // Public: Initialize.
     //
-    // Returns this. //set as completed
+    // Returns this.
     initialize: function () {
       this.on('change:status', function (model) {
         model.save();
@@ -42,11 +42,12 @@ app.Models = app.Models || {};
       }
 
       this.set('status', status);
-      //this.save('status', status);
-      //model.save();
       return this;
     },
 
+    // Public: Archive this todo.
+    //
+    // Returns this.
     archive: function(){
       var status;
       status = this.get('status');

@@ -19,26 +19,12 @@
       <li class="status-bar__item" data-status="complete">Completed</li>
       <li class="status-bar__item" data-status="archive">Archived</li>
       <a id="archive-completed">Archive all completed</a>
-
     </ul>
-
   </section>
 
   <section class="summary-bar">
       <p><span id="tasks-remaining"></span></p>
-      <!--<span id="total-tasks"></span> total tasks</p>-->
   </section>
-
-  <script type="text/template" id="stats-template">
-    <!--<% if (completed) { %>
-      <a id="clear-completed">Clear <%= completed %> completed <%= completed == 1 ? 'item' : 'items' %></a>
-    <% } %>-->
-    <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'task' : 'tasks' %> remaining
-    <% if (completed) { %>
-      <a id="complete-all">Complete All</a>
-    <% } %>
-  </div>
-  </script>
 
   <section class="add-todos">
     <input class="add-todos__input" type="text" placeholder="Add new todo…">
@@ -48,15 +34,26 @@
     <ul class="list"></ul>
   </section>
 
+  <script type="text/template" id="stats-template">
+    <!--<% if (completed) { %>
+      <a id="clear-completed">Clear <%= completed %> completed <%= completed == 1 ? 'item' : 'items' %></a>
+    <% } %>-->
+    <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'task' : 'tasks' %> remaining
+    <% if (completed) { %>
+      <a id="complete-all"><%= remaining == 0 ? '' : 'Compete All' %></a>
+    <% } %>
+  </div>
+  </script>
+
   <script type="text/template" id="todo-template">
     <div class="view">
-    <input class="toggle" type="checkbox" <%= status == 'complete' ? 'checked="checked"' : '' %> />
+    <input class="toggle" type="checkbox" <%= status == 'complete' ? 'checked="checked"' : '' %>
+    <%= status == 'archive' ? 'checked="checked" disabled="true"' : '' %> />
     <%= text %>
     <a class="todo-list__delete-item">x</a>
     <button class="todo-list__archive-item">Archive</button>
-  </div>
+    </div>
   <input class="edit" type="text" value="<%= text %>" />
-
   </script>
 
   <script src="/node_modules/jquery/dist/jquery.js"></script>
