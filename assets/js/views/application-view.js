@@ -130,7 +130,8 @@ app.Views = app.Views || {};
       //using uniqueID for model id
       var uid = _.uniqueId();
       //this.collection.add({id: uid, text: value});
-      this.collection.create({id: uid, text: value});
+      //this.collection.create({id: uid, text: value}); //use uid value for model id
+      this.collection.create({text: value}); //use id from model with nextOrder count
 
       //this.collection.add({text: value}); //doesn't add to database. doesn't call ruby put create new
       //this.collection.create({text: value}); //doesn't call addTodo after the first submit...

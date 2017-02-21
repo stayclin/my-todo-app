@@ -12,7 +12,8 @@ app.Models = app.Models || {};
     // Returns a defaults object.
     defaults: function () {
       return {
-        id:'',
+        //id:'',
+        id: app.Todos.nextOrder(),
         text:'empty',
         status: 'active'
       }

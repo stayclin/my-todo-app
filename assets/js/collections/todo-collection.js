@@ -33,7 +33,15 @@ app.Collections = app.Collections || {};
     // Returns this.
 		completed: function() {
 			return this.without.apply(this, this.remaining());
-		}
+		},
+    nextOrder: function() {
+      debugger;
+      console.log("order length: " + this.length);
+      if (!this.length) return 1;
+      console.log("last id: "+this.last().get("id"));
+      return this.last().get("id") + 1;
+    },
+    comparator: 'id'
   });
   //app.Todos = new app.Collections.TodoCollection();
   app.Todos = new TodoCollection();

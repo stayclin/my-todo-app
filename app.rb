@@ -34,7 +34,7 @@ end
 #create
 #post '/todos' do
 put '/todos/' do
-  #puts "adding new todo"
+  puts "adding new todo"
   params = get_params(request)
 
   if params[:text].nil?
@@ -59,7 +59,7 @@ put '/todos/:id' do
   #todos.each{|todo| todo[:text] = params[:text] if todo[:id]==params[:id]}
   #todos.map{|todo| todo[:status]=params[:status]} #replaces all
 
-  new = false
+  new = true #in case of empty todolist
   todos.each do |todo|
     if todo[:id]==params[:id]
       puts "found exists"
@@ -74,6 +74,7 @@ put '/todos/:id' do
   end
 
 puts new
+puts params[:id]
 if(new)
   todos << {
     id: params[:id],
